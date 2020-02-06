@@ -154,11 +154,10 @@ class DartSimulation:
         plt.ylabel("Frequency")
         print("Mean: {:0.3f}".format(np.mean(scores)))
         print("Std: {:0.3f}".format(np.std(scores)))
-        
+        plt.show()
+
         if save:
             plt.savefig("histogram_{}.png".format(self.num_games), dpi=150)
-            
-        plt.show()
         return fig
     
     def scatter_games(self, save=False):
@@ -228,11 +227,12 @@ if __name__ == "__main__":
     game_parser = argparse.ArgumentParser(description='Options for playing dart game.')
     game_parser.add_argument('ngames', nargs='?', default=1000, type=int,
                              help='Specify number of games for simulation')
-    game_parser.add_argument('coord', nargs='?', default=True, type=bool,
-                             help='Randomly generate Cartesian or polar coordinates')
+    game_parser.add_argument('coord', nargs='?', default=0, type=int,
+                             help='Randomly generate Cartesian (1) or polar coordinates (0)')
     args = game_parser.parse_args()
     
     print("Playing dart games...")
+    print(args.coord)
     game = DartSimulation(args.ngames, 1, args.coord)
     game.simulate()
     print("Done!")
